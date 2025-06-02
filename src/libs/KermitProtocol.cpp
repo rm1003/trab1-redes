@@ -106,6 +106,10 @@ int CustomProtocol::PackageHandler::RecvPackage() {
         DEBUG_PRINT("Repeated message. Maybe sender did not get ACK.\n");
         return REPEATED_MSG;
       }
+      if (this->currentPkg->idx != this->lastRecvIdx + 1) {
+        DEBUG_PRINT("Expected currentPkg idx to be lastRecvIdx + 1.\n");
+        return INVALID_NEW_MSG;
+      }
       this->lastRecvIdx = this->currentPkg->idx;
       return VALID_NEW_MSG;
     }
