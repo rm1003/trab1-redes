@@ -13,7 +13,6 @@ namespace CustomProtocol {
 const unsigned long DATA_SIZE = 128;
 const unsigned char INIT_MARK = 0x7e;
 const unsigned long DATA_BUFFER_SIZE = 1 << 20;
-const unsigned long SPLIT_BUFFER_SIZE = DATA_BUFFER_SIZE / (1 << 7);
 
 /* Given in miliseconds */
 const unsigned long TIMEOUT_LEN = 200;
