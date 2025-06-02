@@ -16,7 +16,7 @@ const unsigned long DATA_BUFFER_SIZE = 1 << 20;
 const unsigned long SPLIT_BUFFER_SIZE = DATA_BUFFER_SIZE / (1 << 7);
 
 /* Given in miliseconds */
-const unsigned long TIMEOUT_LEN = 100;
+const unsigned long TIMEOUT_LEN = 200;
 
 const int REPEATED_MSG = 1;
 const int TIMEOUT_REACHED = 2;
