@@ -41,8 +41,6 @@ enum MsgType {
   ERROR
 };
 
-const char NO_SPACE_ERROR[] = "1";
-
 struct KermitPackage {
   unsigned char initMark;
   unsigned short size    : 7;
