@@ -13,11 +13,11 @@ const std::string MP4_PLAYER  = "vlc ";
 const std::string JPG_PLAYER  = "eog ";
 const std::string TXT_PLAYER  = "xed ";
 
-char INPUT_FILE[] = "video.mp4";
+char INPUT_FILE[] = "img.jpg";
 
 int main() {
   Data::Buffer buffer;
-  CustomProtocol::NetworkHandler netHandler;
+  CustomProtocol::NetworkHandler netHandler(false);
   CustomProtocol::MsgType msgRet;
 
   size_t dataLen;

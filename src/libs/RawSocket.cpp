@@ -9,9 +9,17 @@ extern "C" {
 #include <unistd.h>
 }
 
-CustomSocket::RawSocket::RawSocket(const char *ethInterfaceName) {
+// Given in miliseconds
+long TIMEOUT_LEN;
+
+CustomSocket::RawSocket::RawSocket(const char *ethInterfaceName, bool setTimeout) {
   if (this->CreateSocket(ethInterfaceName)) {
     exit(1);
+  }
+  if (setTimeout) {
+    TIMEOUT_LEN = 100;
+  } else {
+    TIMEOUT_LEN = 0;
   }
   this->SetRecvTimeout();
 }

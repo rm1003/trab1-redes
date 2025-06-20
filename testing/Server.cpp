@@ -5,11 +5,11 @@
 #include "../src/libs/Logging.hpp"
 #include <cstddef>
 
-char INPUT_FILE[] = "./objetos/2.mp4";
+char INPUT_FILE[] = "./objetos/3.jpg";
 
 int main() {
   Data::Buffer buffer;
-  CustomProtocol::NetworkHandler netHandler;
+  CustomProtocol::NetworkHandler netHandler(true);
   void *ptr;
   size_t actualSize;
   size_t bytesRetrived;

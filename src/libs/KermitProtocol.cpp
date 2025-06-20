@@ -14,6 +14,9 @@ extern "C" {
 
 using CustomProtocol::KermitPackage;
 
+/* Given in miliseconds */
+long TIMEOUT_LEN;
+
 unsigned long timestamp() {
   /* Static to avoid multiple allocations */
   static struct timeval tp;
@@ -29,10 +32,15 @@ void PrintErrorMsgType(CustomProtocol::MsgType msg, const char *location) {
 // CustomProtocol::PackageHandler
 //=================================================================//
 
-CustomProtocol::PackageHandler::PackageHandler(const char *netIntName) {
-  this->sokt = new CustomSocket::RawSocket(netIntName);
+CustomProtocol::PackageHandler::PackageHandler(const char *netIntName, bool setTimeout) {
+  this->sokt = new CustomSocket::RawSocket(netIntName, setTimeout);
   this->SetInitMarkPkg();
   this->lastRecvIdx = this->lastUsedIdx = 0;
+  if (setTimeout) {
+    TIMEOUT_LEN = 100;
+  } else {
+    TIMEOUT_LEN = 0;
+  }
 }
 
 CustomProtocol::PackageHandler::~PackageHandler() {
@@ -210,9 +218,9 @@ bool CustomProtocol::PackageHandler::IsMsgKermitPackage() {
 //===================================================================
 // NetworkHandler
 //===================================================================
-CustomProtocol::NetworkHandler::NetworkHandler() {
+CustomProtocol::NetworkHandler::NetworkHandler(bool beginAsSender) {
   const char *ethIntName = this->GetEthIntName();
-  this->pkgHandler = new PackageHandler(ethIntName);
+  this->pkgHandler = new PackageHandler(ethIntName, beginAsSender);
   free((void*)ethIntName);
   this->isFirstRecv = true;
 }

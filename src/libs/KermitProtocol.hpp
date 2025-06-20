@@ -17,9 +17,6 @@ const unsigned long DATA_SIZE = 0x7f;
 const unsigned char INIT_MARK = 0x7e;
 const unsigned long DATA_BUFFER_SIZE = 1 << 20;
 
-/* Given in miliseconds */
-const unsigned long TIMEOUT_LEN = 100;
-
 const int REPEATED_MSG = 1;
 const int TIMEOUT_REACHED = 2;
 const int VALID_NEW_MSG = 3;
@@ -81,7 +78,7 @@ class PackageHandler {
     /* Verify checksum field of recv package */
     bool VerifyChecksum();
   public:
-    PackageHandler(const char *netIntName);
+    PackageHandler(const char *netIntName, bool setTimeout);
     ~PackageHandler();
     /* Initialize current package with type (message type), data (pointer
      * to data) and number of data bytes (<= 128) */
@@ -104,7 +101,7 @@ class NetworkHandler {
     const char *GetEthIntName();
     void TransferData(const KermitPackage *retPkg, void *ptr, size_t *len);
   public:
-    NetworkHandler();
+    NetworkHandler(bool beginAsSender);
     ~NetworkHandler();
     /* Send len bytes in ptr. Wait until acknoledgment or error */
     void SendGenericData(MsgType msg, void *ptr, size_t len);
