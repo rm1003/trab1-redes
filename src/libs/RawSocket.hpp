@@ -16,9 +16,9 @@ namespace CustomSocket {
       int socketFd;
 
       int CreateSocket(const char *netIntName);
-      void SetRecvTimeout();
+      void SetRecvTimeout(long timeout);
     public:
-      RawSocket(const char *netIntName, bool setTimeout);
+      RawSocket(const char *netIntName, long timeout);
       ~RawSocket();
       int Send(void *ptr, size_t len);
       int Recv(void *ptr, size_t len);

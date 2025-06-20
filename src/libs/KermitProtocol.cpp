@@ -15,7 +15,7 @@ extern "C" {
 using CustomProtocol::KermitPackage;
 
 /* Given in miliseconds */
-long TIMEOUT_LEN;
+unsigned long TIMEOUT_LEN;
 
 unsigned long timestamp() {
   /* Static to avoid multiple allocations */
@@ -33,14 +33,10 @@ void PrintErrorMsgType(CustomProtocol::MsgType msg, const char *location) {
 //=================================================================//
 
 CustomProtocol::PackageHandler::PackageHandler(const char *netIntName, bool setTimeout) {
-  this->sokt = new CustomSocket::RawSocket(netIntName, setTimeout);
+  TIMEOUT_LEN = (setTimeout) ? 100 : 0;
+  this->sokt = new CustomSocket::RawSocket(netIntName, (long)TIMEOUT_LEN);
   this->SetInitMarkPkg();
   this->lastRecvIdx = this->lastUsedIdx = 0;
-  if (setTimeout) {
-    TIMEOUT_LEN = 100;
-  } else {
-    TIMEOUT_LEN = 0;
-  }
 }
 
 CustomProtocol::PackageHandler::~PackageHandler() {
